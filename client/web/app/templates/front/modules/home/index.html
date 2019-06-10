@@ -1,0 +1,44 @@
+{% extends "front/layout/main.html" %}
+
+{% block title %}
+    Nepali Digit Recognitions
+{% endblock %}
+
+{% block body %}
+
+    <h1>Digit Recognition using Convolution Neural Networks</h1>
+
+    <div class="centered">
+        <canvas id="canvas" width="200" height="280"></canvas>
+    </div>
+
+    <div class="centered">
+        <input type="button" class="predict" value="Predict"/>
+        <input type="button" class="clear" value="Clear"/>
+    </div>
+
+    <div class="centered">
+        <h1 id="result"></h1>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+    <script type="text/javascript">
+      $('.predict').on('click', function() {
+        $('#result').text('  Predicting...');
+        var canvasObj = document.getElementById('canvas');
+        var img = canvasObj.toDataURL('image/png');
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:5000/predict',
+          data: img,
+          success: function(data) {
+            $('#result').text('Predicted Output: ' + data);
+          },
+        });
+      });
+    </script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

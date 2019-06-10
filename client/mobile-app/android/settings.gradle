@@ -1,0 +1,5 @@
+rootProject.name = 'NepaliDigitRecognition'
+include ':react-native-sketch-view'
+project(':react-native-sketch-view').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sketch-view/android')
+
+include ':app'
